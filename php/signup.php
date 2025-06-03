@@ -21,7 +21,7 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
 $stmt = $pdo->prepare($sql);
 if ($stmt->execute([$name, $email, $hashedPassword])) {
-    echo "登録成功！ <a href='index.html'>ログインへ戻る</a>";
+    echo "登録成功！ <a href='https://giyuu.great-site.net/?i=1'>ログインへ戻る</a>";
 } else {
     echo "登録に失敗しました。すでに登録されたメールかもしれません。";
 }
