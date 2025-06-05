@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("Location: index.html");
+    header("Location: https://giyuu.great-site.net/?i=1");
     exit;
 }
 ?>

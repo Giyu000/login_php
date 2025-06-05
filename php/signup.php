@@ -16,13 +16,27 @@ $name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 
+if ($name === '' || $email === '' || $password === '') {
+    die("全ての項目を入力してください。");
+    
+    echo '<pre>';
+    print_r('$POST'.$_POST);
+    echo '</pre>';
+}
+
+// エラーログ
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // ハッシュ化してDBに登録
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
 $stmt = $pdo->prepare($sql);
 if ($stmt->execute([$name, $email, $hashedPassword])) {
     echo "登録成功！ <a href='https://giyuu.great-site.net/?i=1'>ログインへ戻る</a>";
-} else {
-    echo "登録に失敗しました。すでに登録されたメールかもしれません。";
+    $errorInfo = $stmt->errorInfo();
+    die("登録に失敗しました。エラー: " . $errorInfo[2]);
+
 }
 ?>
